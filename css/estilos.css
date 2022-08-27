@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Silkscreen', cursive;
+}
+
+body {
+    background-color: #0e1830;
+    color: white;
+}
+
+.titulo{
+    margin: 20px 20px 0px 20px;
+    color: #0D172E;
+    background-color: #FF3CAC;
+    background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%);
+    border-radius: 10px 10px 0 0px;
+    text-align: center;
+    font-size: 50px;
+    text-shadow: -1px 0 #8EC046, 0 1px #33B0FE, 1px 0 #33B0FE, 0 -1px #8EC046;
+}
+
+.subtitulo {
+    margin: 10px;
+    color: white;
+    font-style: italic;
+    text-align: center;
+}
+
+.seleccionar-mascota{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    margin: 0px 20px 20px 20px;
+    background-color: #121F3D;
+    border-radius: 0px 0px 20px 20px;
+}
+
+.tarjetas {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+input {
+    display: none;
+}
+
+.tarjeta-mokepon {
+    background-color: #0E1830;
+    width: 200px;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 3px solid #33B0FE;
+    text-align: center;
+    font-weight: bold;
+}
+
+.tarjeta-mokepon:hover{
+    background-color: #FF3CAC;
+    background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%);
+    color: #0D172E; 
+}
+
+.tarjeta-mokepon p {
+    margin-bottom: 10px;
+}
+
+.tarjeta-mokepon img {
+    width: 100%;
+    filter: grayscale(100%);
+}
+
+.tarjeta-mokepon:hover img {
+    transition: transform .2s;
+    transform: scale(1.15);
+    filter: grayscale(0%);
+}
+
+input:checked + .tarjeta-mokepon{
+    background-color: #FEE140;
+    background-image: linear-gradient(90deg, #FEE140 0%, #FA709A 100%);
+    color: #0D172E; 
+}
+
+input:checked + .tarjeta-mokepon img{
+    transition: transform .2s;
+    transform: scale(1.15);
+    filter: grayscale(0%);
+}
+
+.boton-elegir, .boton-ataque, .boton-reiniciar {
+    height: 50px;
+    padding: 10px;
+    border: 0px;
+    color: #121F3D;
+    font-weight: bold;
+    font-size: 15px;
+
+}
+
+.boton-elegir, .boton-reiniciar{
+    width: 100%;
+    border-radius: 0px 0px 10px 10px;
+    background-image: linear-gradient( 83.2deg,  rgba(150,93,233,1) 10.8%, rgba(99,88,238,1) 94.3% );
+    margin-top: 10px;
+}
+
+.boton-elegir:hover,.boton-reiniciar:hover{
+    background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(244,164,96,1) 0%, rgba(143,188,143,1) 90% );
+}
+
+.boton-ataque{
+    width: 200px;
+    background-image: linear-gradient( 83.2deg,  rgba(150,93,233,1) 10.8%, rgba(99,88,238,1) 94.3% );
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.boton-ataque:hover{
+    border: 3px solid #33B0FE;
+    color: white
+}
+
+.seleccionar-ataque {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px 20px 20px 20px;
+    background-color: #121F3D;
+    border-radius: 0px 0px 20px 20px;
+}
+
+.botones-ataque{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+
+#boton-fuego{
+    background-color: #FAD961;
+    background-image: linear-gradient(90deg, #FAD961 0%, #F76B1C 100%);    
+}
+
+#boton-agua{
+    background-image: linear-gradient( 132.6deg,  rgba(71,139,214,1) 23.3%, rgba(37,216,211,1) 84.7% );
+}
+
+#boton-tierra{
+    background-image: radial-gradient( circle 759px at -6.7% 50%,  rgba(80,131,73,1) 0%, rgba(140,209,131,1) 26.2%, rgba(178,231,170,1) 50.6%, rgba(144,213,135,1) 74.1%, rgba(75,118,69,1) 100.3% );
+}
+
+.mensajes {
+    background-color: #2B86C5;
+    margin: 20px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.ataques{
+    width: 100%;
+    display: grid;
+    grid-template: 1fr / 1fr 1fr;
+}
+
+.ataques-enemigo, .ataques-jugador{
+    margin: 20px;
+    border: 1px solid #2B86C5;
+    border-radius: 5px;
+    padding: 10px;
+    /* text-align: center; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* El dispositivo cuyo tamaño sea HASTA el ancho indicado aca , va a suceder lo que se escriba dentro */
+@media (max-width: 600px) {
+    .tarjetas {
+        flex-direction: column;
+        align-items: center;
+    }
+}
