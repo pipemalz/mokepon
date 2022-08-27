@@ -29,12 +29,37 @@ class Mokepon {
         this.nombre = nombre
         this.foto = foto
         this.vida = vida
+        this.ataques = []
     }
 }
 
 let hipodoge = new Mokepon('Hipodoge', './img/hipodoge.png', 5)
 let capipepo = new Mokepon('capipepo', './img/capipepo.png', 5)
 let ratigueya = new Mokepon('ratigueya', './img/ratigueya.png', 5)
+
+hipodoge.ataques.push(
+    {nombre: '💦', id: 'boton-agua'},
+    {nombre: '💦', id: 'boton-agua'},
+    {nombre: '💦', id: 'boton-agua'},
+    {nombre: '🌱', id: 'boton-tierra'},
+    {nombre: '🔥', id: 'boton-fuego'}
+)
+
+capipepo.ataques.push(
+    {nombre: '🌱', id: 'boton-tierra'},
+    {nombre: '🌱', id: 'boton-tierra'},
+    {nombre: '🌱', id: 'boton-tierra'},
+    {nombre: '💦', id: 'boton-agua'},
+    {nombre: '🔥', id: 'boton-fuego'}
+)
+
+ratigueya.ataques.push(
+    {nombre: '🔥', id: 'boton-fuego'},
+    {nombre: '🔥', id: 'boton-fuego'},
+    {nombre: '🔥', id: 'boton-fuego'},
+    {nombre: '💦', id: 'boton-agua'},
+    {nombre: '🌱', id: 'boton-tierra'}
+)
 
 mokepones.push(hipodoge, capipepo, ratigueya)
 
