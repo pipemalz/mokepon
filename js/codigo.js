@@ -18,6 +18,7 @@ const parrafoGanador = document.getElementById('resultado')
 const parrafoResultado = document.getElementById('resultado-final')
 const divAtaquesEnemigo = document.getElementById('ataques-enemigo')
 const divAtaquesJugador = document.getElementById('ataques-jugador')
+let mokepones = []
 let ataqueJugador
 let ataqueEnemigo
 let vidasJugador = 3
@@ -32,10 +33,10 @@ class Mokepon {
 }
 
 let hipodoge = new Mokepon('Hipodoge', './img/hipodoge.png', 5)
-
 let capipepo = new Mokepon('capipepo', './img/capipepo.png', 5)
-
 let ratigueya = new Mokepon('ratigueya', './img/ratigueya.png', 5)
+
+mokepones.push(hipodoge, capipepo, ratigueya)
 
 function iniciarJuego(){
     seccionSeleccionarAtaque.style.display='none'
