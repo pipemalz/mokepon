@@ -18,9 +18,11 @@ const parrafoGanador = document.getElementById('resultado')
 const parrafoResultado = document.getElementById('resultado-final')
 const divAtaquesEnemigo = document.getElementById('ataques-enemigo')
 const divAtaquesJugador = document.getElementById('ataques-jugador')
+const contenedorTarjetas = document.getElementById('contenedor-tarjetas')
 let mokepones = []
 let ataqueJugador
 let ataqueEnemigo
+let opcionDeMokepones
 let vidasJugador = 3
 let vidasEnemigo = 3
 
@@ -33,7 +35,7 @@ class Mokepon {
     }
 }
 
-let hipodoge = new Mokepon('Hipodoge', './img/hipodoge.png', 5)
+let hipodoge = new Mokepon('hipodoge', './img/hipodoge.png', 5)
 let capipepo = new Mokepon('capipepo', './img/capipepo.png', 5)
 let ratigueya = new Mokepon('ratigueya', './img/ratigueya.png', 5)
 
@@ -67,6 +69,17 @@ function iniciarJuego(){
     seccionSeleccionarAtaque.style.display='none'
     seccionReiniciarJuego.style.display='none'
     seccionMensajes.style.display='none'
+
+    mokepones.forEach((mokepon) => {
+        opcionDeMokepones = `
+            <input type="radio" name="mascota" id="${mokepon.nombre}">
+            <label class="tarjeta-mokepon" for="${mokepon.nombre}">
+                <p>${mokepon.nombre}</p>
+                <img src="${mokepon.foto}" alt="${mokepon.nombre}" id="img-${mokepon.nombre}">
+            </label>
+        `
+        contenedorTarjetas.innerHTML += opcionDeMokepones
+    })
 
     botonElegir.addEventListener('click', seleccionarMascotaJugador)
     botonFuego.addEventListener('click', ataqueFuego)
