@@ -95,13 +95,13 @@ function iniciarJuego(){
 function seleccionarMascotaJugador() { 
 
     if (inputHipodoge.checked) {
-        spanMascotaJugador.innerHTML = 'Hipodoge'
+        spanMascotaJugador.innerHTML = inputHipodoge.id
         seleccionarMascotaEnemigo()
     } else if (inputCapipepo.checked) {
-        spanMascotaJugador.innerHTML = 'Capipepo'
+        spanMascotaJugador.innerHTML = inputCapipepo.id
         seleccionarMascotaEnemigo()
     } else if (inputRatigueya.checked) {
-        spanMascotaJugador.innerHTML = 'Ratigueya'
+        spanMascotaJugador.innerHTML = inputRatigueya.id
         seleccionarMascotaEnemigo()
     } else {
         alert('Por favor elige una mascota! 🤔')
@@ -110,15 +110,9 @@ function seleccionarMascotaJugador() {
 }
 
 function seleccionarMascotaEnemigo(){
-    let mascotaAleatoriaEnemigo = numeroRandom(1,3)
+    let mascotaAleatoriaEnemigo = numeroRandom(0, mokepones.length-1)
 
-    if (mascotaAleatoriaEnemigo == 1){
-        spanMascotaEnemigo.innerHTML ='Hipodoge'
-    } else if (mascotaAleatoriaEnemigo == 2){
-        spanMascotaEnemigo.innerHTML ='Capipepo'
-    } else {
-        spanMascotaEnemigo.innerHTML = 'Ratigueya'
-    }
+    spanMascotaEnemigo.innerHTML = mokepones[mascotaAleatoriaEnemigo].nombre
 
     seccionSeleccionarMascota.style.display='none'
     seccionSeleccionarAtaque.style.display='flex'
