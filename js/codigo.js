@@ -15,7 +15,6 @@ const divAtaquesJugador = document.getElementById('ataques-jugador')
 const contenedorTarjetas = document.getElementById('contenedor-tarjetas')
 const contenedorBotonesAtaque = document.getElementById('botones-ataque')
 let mokepones = []
-let ataqueEnemigo
 let mascotaJugador
 let mascotaEnemigo
 let opcionDeMokepones
@@ -27,7 +26,9 @@ let botonFuego
 let botonAgua
 let botonTierra
 let botones = []
-let ataqueJugador = []
+let ataqueSeleccionadoJugador = []
+let ataqueSeleccionadoEnemigo = []
+let ataquesMokeponEnemigo = []
 let vidasJugador = 3
 let vidasEnemigo = 3
 
@@ -45,27 +46,27 @@ let capipepo = new Mokepon('capipepo', './img/capipepo.png', 5)
 let ratigueya = new Mokepon('ratigueya', './img/ratigueya.png', 5)
 
 hipodoge.ataques.push(
-    {nombre: '💦', id: 'boton-agua'},
-    {nombre: '💦', id: 'boton-agua'},
-    {nombre: '💦', id: 'boton-agua'},
-    {nombre: '🌱', id: 'boton-tierra'},
-    {nombre: '🔥', id: 'boton-fuego'}
+    {nombre: '💦', id: 'boton-agua', nombreAtaque: 'AGUA'},
+    {nombre: '💦', id: 'boton-agua', nombreAtaque: 'AGUA'},
+    {nombre: '💦', id: 'boton-agua', nombreAtaque: 'AGUA'},
+    {nombre: '🌱', id: 'boton-tierra', nombreAtaque: 'TIERRA'},
+    {nombre: '🔥', id: 'boton-fuego', nombreAtaque: 'FUEGO'}
 )
 
 capipepo.ataques.push(
-    {nombre: '🌱', id: 'boton-tierra'},
-    {nombre: '🌱', id: 'boton-tierra'},
-    {nombre: '🌱', id: 'boton-tierra'},
-    {nombre: '💦', id: 'boton-agua'},
-    {nombre: '🔥', id: 'boton-fuego'}
+    {nombre: '🌱', id: 'boton-tierra', nombreAtaque: 'TIERRA'},
+    {nombre: '🌱', id: 'boton-tierra', nombreAtaque: 'TIERRA'},
+    {nombre: '🌱', id: 'boton-tierra', nombreAtaque: 'TIERRA'},
+    {nombre: '💦', id: 'boton-agua', nombreAtaque: 'AGUA'},
+    {nombre: '🔥', id: 'boton-fuego', nombreAtaque: 'FUEGO'}
 )
 
 ratigueya.ataques.push(
-    {nombre: '🔥', id: 'boton-fuego'},
-    {nombre: '🔥', id: 'boton-fuego'},
-    {nombre: '🔥', id: 'boton-fuego'},
-    {nombre: '💦', id: 'boton-agua'},
-    {nombre: '🌱', id: 'boton-tierra'}
+    {nombre: '🔥', id: 'boton-fuego', nombreAtaque: 'FUEGO'},
+    {nombre: '🔥', id: 'boton-fuego', nombreAtaque: 'FUEGO'},
+    {nombre: '🔥', id: 'boton-fuego', nombreAtaque: 'FUEGO'},
+    {nombre: '💦', id: 'boton-agua', nombreAtaque: 'AGUA'},
+    {nombre: '🌱', id: 'boton-tierra', nombreAtaque: 'TIERRA'}
 )
 
 mokepones.push(hipodoge, capipepo, ratigueya)
@@ -151,15 +152,16 @@ function secuenciaAtaque(){
     botones.forEach((boton)=> {
         boton.addEventListener('click', (evento)=>{
             if (evento.target.textContent === '🔥'){
-                ataqueJugador.push('FUEGO')
+                ataqueSeleccionadoJugador.push('FUEGO')
             }else if(evento.target.textContent === '💦'){
-                ataqueJugador.push('AGUA')
+                ataqueSeleccionadoJugador.push('AGUA')
             }else{
-                ataqueJugador.push('TIERRA')
+                ataqueSeleccionadoJugador.push('TIERRA')
             }
             boton.style.background = '#666'
             boton.disabled = true
             boton.classList.remove('btn-ataque')
+            seleccionarAtaqueEnemigo()
         })
     })
 }
@@ -168,7 +170,8 @@ function seleccionarMascotaEnemigo(){
     let mascotaAleatoriaEnemigo = numeroRandom(0, mokepones.length-1)
 
     spanMascotaEnemigo.innerHTML = mokepones[mascotaAleatoriaEnemigo].nombre
-
+    
+    ataquesMokeponEnemigo = mokepones[mascotaAleatoriaEnemigo].ataques
     // seccionSeleccionarMascota.style.display='none'
     seccionSeleccionarAtaque.style.display='flex'
     inputHipodoge.disabled = true
@@ -183,23 +186,35 @@ function numeroRandom(min, max){
     return Math.floor(Math.random()*(max-min+1)+min)
 }
 
-function seleccionarAtaqueEnemigo(){
-    let ataqueAleatorio = numeroRandom(1,3)
 
-    if (ataqueAleatorio == 1) {
-        ataqueEnemigo = 'Fuego 🔥'
-    } else if (ataqueAleatorio == 2){
-        ataqueEnemigo = 'Agua 💦'
-    } else {
-        ataqueEnemigo = 'Tierra 🌱'
-    }
+function seleccionarAtaqueEnemigo(){
+
+    // let ataqueAleatorio = numeroRandom(0, ataquesMokeponEnemigo.length-1)
+
+    // if (ataqueAleatorio == 0) {
+    //     ataqueSeleccionadoEnemigo.push('FUEGO')
+    // } else if (ataqueAleatorio == 1){
+    //     ataqueSeleccionadoEnemigo.push('FUEGO')
+    // } else if (ataqueAleatorio == 2){
+    //     ataqueSeleccionadoEnemigo.push('AGUA')
+    // } else if (ataqueAleatorio == 3){
+    //     ataqueSeleccionadoEnemigo.push('AGUA')
+    // } else {
+    //     ataqueSeleccionadoEnemigo.push('TIERRA')
+    // }
+
+    // console.log(ataqueSeleccionadoEnemigo)
+    ataquesMokeponEnemigo.sort(()=>Math.random()-0.5)
+    ataqueSeleccionadoEnemigo.push(ataquesMokeponEnemigo[0].nombreAtaque)
+    ataquesMokeponEnemigo.shift()
+
+    console.log(ataqueSeleccionadoEnemigo)
 
     if(vidasEnemigo <= 0 || vidasJugador <=0){
         alert('El combate ha finalizado, reinicia el juego para seguir jugando...')
     } else {
         combate()
     }
-    
 }
 
 // Agua derrota Fuego, Fuego derrota Tierra, Tierra derrota Agua
