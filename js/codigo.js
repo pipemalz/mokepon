@@ -15,7 +15,6 @@ const divAtaquesJugador = document.getElementById('ataques-jugador')
 const contenedorTarjetas = document.getElementById('contenedor-tarjetas')
 const contenedorBotonesAtaque = document.getElementById('botones-ataque')
 let mokepones = []
-let ataqueJugador
 let ataqueEnemigo
 let mascotaJugador
 let mascotaEnemigo
@@ -27,6 +26,8 @@ let botonesAtaques
 let botonFuego
 let botonAgua
 let botonTierra
+let botones = []
+let ataqueJugador = []
 let vidasJugador = 3
 let vidasEnemigo = 3
 
@@ -136,17 +137,31 @@ function extraerAtaques(mascotaJugador){
 function mostrarAtaques(ataques){
     
     ataques.forEach((ataque)=> {
-        botonesAtaques = `<button class="boton-ataque" id="${ataque.id}">${ataque.nombre}</button>`
+        botonesAtaques = `<button class="boton-ataque btn-ataque" id="${ataque.id}">${ataque.nombre}</button>`
         contenedorBotonesAtaque.innerHTML += botonesAtaques
     })
 
-    botonFuego = document.getElementById('boton-fuego')
-    botonAgua = document.getElementById('boton-agua')
-    botonTierra = document.getElementById('boton-tierra')
-    
-    botonFuego.addEventListener('click', ataqueFuego)
-    botonAgua.addEventListener('click', ataqueAgua)
-    botonTierra.addEventListener('click', ataqueTierra)
+    botones = document.querySelectorAll('.btn-ataque')
+ 
+    secuenciaAtaque()
+}
+
+function secuenciaAtaque(){
+
+    botones.forEach((boton)=> {
+        boton.addEventListener('click', (evento)=>{
+            if (evento.target.textContent === '🔥'){
+                ataqueJugador.push('FUEGO')
+            }else if(evento.target.textContent === '💦'){
+                ataqueJugador.push('AGUA')
+            }else{
+                ataqueJugador.push('TIERRA')
+            }
+            boton.style.background = '#666'
+            boton.disabled = true
+            boton.classList.remove('btn-ataque')
+        })
+    })
 }
 
 function seleccionarMascotaEnemigo(){
@@ -166,21 +181,6 @@ function seleccionarMascotaEnemigo(){
 
 function numeroRandom(min, max){
     return Math.floor(Math.random()*(max-min+1)+min)
-}
-
-function ataqueFuego(){
-    ataqueJugador = 'Fuego 🔥'
-    seleccionarAtaqueEnemigo()
-}
-
-function ataqueAgua(){
-    ataqueJugador = 'Agua 💦'
-    seleccionarAtaqueEnemigo()
-}
-
-function ataqueTierra(){
-    ataqueJugador = 'Tierra 🌱'
-    seleccionarAtaqueEnemigo()
 }
 
 function seleccionarAtaqueEnemigo(){
