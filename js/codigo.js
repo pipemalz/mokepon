@@ -23,6 +23,7 @@ let opcionDeMokepones
 let inputHipodoge
 let inputCapipepo
 let inputRatigueya
+let botonesAtaques
 let botonFuego
 let botonAgua
 let botonTierra
@@ -133,16 +134,11 @@ function extraerAtaques(mascotaJugador){
 }
 
 function mostrarAtaques(ataques){
-    let botonesAtaques
-
-    botonesAtaques = `
-        <button class="boton-ataque" id="${ataques[0].id}">${ataques[0].nombre}</button>
-        <button class="boton-ataque" id="${ataques[1].id}">${ataques[1].nombre}</button>
-        <button class="boton-ataque" id="${ataques[2].id}">${ataques[2].nombre}</button>
-        <button class="boton-ataque" id="${ataques[3].id}">${ataques[3].nombre}</button>
-        <button class="boton-ataque" id="${ataques[4].id}">${ataques[4].nombre}</button>`
-
-    contenedorBotonesAtaque.innerHTML = botonesAtaques
+    
+    ataques.forEach((ataque)=> {
+        botonesAtaques = `<button class="boton-ataque" id="${ataque.id}">${ataque.nombre}</button>`
+        contenedorBotonesAtaque.innerHTML += botonesAtaques
+    })
 
     botonFuego = document.getElementById('boton-fuego')
     botonAgua = document.getElementById('boton-agua')
