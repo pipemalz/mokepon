@@ -232,8 +232,6 @@ function indexAmbosOponentes(jugador,enemigo){
 function combate() {
 
     seccionMensajes.style.display='flex'
-    // spanVidasJugador.innerHTML = vidasJugador
-    // spanVidasEnemigo.innerHTML = vidasEnemigo
 
     for (let i = 0; i < ataqueSeleccionadoJugador.length; i++) {
         
@@ -252,6 +250,10 @@ function combate() {
             indexAmbosOponentes(i,i)
             victoriasEnemigo++
         }
+
+        spanVidasJugador.innerHTML = "Victorias: " + victoriasJugador
+        spanVidasEnemigo.innerHTML = "Victorias: " + victoriasEnemigo
+        crearMensaje()
     }
     
     revisarVictorias()
@@ -290,11 +292,11 @@ function detenerJuego() {
     parrafoGanador.style.display = 'none'
 }
 
-function crearMensajeGanador(ganador) { 
-    if (ganador == 1){
+function crearMensajeGanador(resultado) { 
+    if (resultado == 1){
         parrafoResultado.innerHTML = 'Te quedaste sin vidas, has perdido! 😫'
         seccionMensajes.style.backgroundColor = 'crimson'
-    } else if (ganador == 2) {
+    } else if (resultado == 2) {
         parrafoResultado.innerHTML = 'El enemigo se ha quedado sin vidas, ganaste! 😁'
         seccionMensajes.style.backgroundColor = 'green'
     } else {
