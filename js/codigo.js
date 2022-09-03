@@ -46,39 +46,25 @@ function crearMokepon(nombre, foto, tipo){
 }
 
 function asignarAtaques(mokepon){
-    if (mokepon.tipo == 'AGUA'){
-        mokepon.ataques.push(
-            {nombre: 'AGUA', id: 'boton-agua', icono: '💦'},
-            {nombre: 'AGUA', id: 'boton-agua', icono: '💦'},
-            {nombre: 'VIENTO', id: 'boton-viento', icono: '💨'},
-            {nombre: 'TIERRA', id: 'boton-tierra', icono: '🌱'},
-            {nombre: 'FUEGO', id: 'boton-fuego', icono: '🔥'}
-        )
-    }else if (mokepon.tipo == 'TIERRA'){
-        mokepon.ataques.push(
-            {nombre: 'TIERRA', id: 'boton-tierra', icono: '🌱'},
-            {nombre: 'TIERRA', id: 'boton-tierra', icono: '🌱'},
-            {nombre: 'VIENTO', id: 'boton-viento', icono: '💨'},
-            {nombre: 'AGUA', id: 'boton-agua', icono: '💦'},
-            {nombre: 'FUEGO', id: 'boton-fuego', icono: '🔥'}
-        )
-    }else if (mokepon.tipo == 'FUEGO'){
-        mokepon.ataques.push(
-            {nombre: 'FUEGO', id: 'boton-fuego', icono: '🔥'},
-            {nombre: 'FUEGO', id: 'boton-fuego', icono: '🔥'},
-            {nombre: 'VIENTO', id: 'boton-viento', icono: '💨'},
-            {nombre: 'AGUA', id: 'boton-agua', icono: '💦'},
-            {nombre: 'TIERRA', id: 'boton-tierra', icono: '🌱'}
-        )      
-    }else if(mokepon.tipo == 'VIENTO'){
-        mokepon.ataques.push(
-            {nombre: 'VIENTO', id: 'boton-viento', icono: '💨'},
-            {nombre: 'VIENTO', id: 'boton-viento', icono: '💨'},
-            {nombre: 'TIERRA', id: 'boton-tierra', icono: '🌱'},
-            {nombre: 'AGUA', id: 'boton-agua', icono: '💦'},
-            {nombre: 'FUEGO', id: 'boton-fuego', icono: '🔥'}
-        )
-    }
+
+    let ataques = [
+        {nombre: 'AGUA', id: 'boton-agua', icono: '💦'},
+        {nombre: 'VIENTO', id: 'boton-viento', icono: '💨'},
+        {nombre: 'TIERRA', id: 'boton-tierra', icono: '🌱'},
+        {nombre: 'FUEGO', id: 'boton-fuego', icono: '🔥'}
+    ]
+
+        ataques.forEach(ataque=>{
+            mokepon.ataques.push(
+                {nombre: ataque.nombre, id: `boton-${ataque.nombre.toLocaleLowerCase()}`, icono: ataque.icono}
+            )
+            if(ataque.nombre == mokepon.tipo){
+                mokepon.ataques.push(
+                    {nombre: ataque.nombre, id: `boton-${ataque.nombre.toLocaleLowerCase()}`, icono: ataque.icono}
+                )
+            }
+        })    
+
 }
 
 function iniciarJuego(){
