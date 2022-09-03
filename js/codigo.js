@@ -1,6 +1,6 @@
 const botonElegir = document.getElementById('boton-elegir')
 const botonReiniciar = document.getElementById('boton-reiniciar')
-const botonMover = document.getElementById('boton-mover')
+const botonesMover = document.querySelectorAll('.boton-mover')
 const seccionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
 const seccionReiniciarJuego = document.getElementById('boton-reiniciar')
 const seccionMensajes = document.getElementById('mensajes')
@@ -104,7 +104,6 @@ function iniciarJuego(){
     })
 
     botonElegir.addEventListener('click', seleccionarMascotaJugador)
-    botonMover.addEventListener('click', moverMokepon)
     botonReiniciar.addEventListener('click', reiniciarJuego)
 }
 
@@ -131,6 +130,21 @@ function seleccionarMascotaJugador() {
 
 function mostrarMapa(){
     contenedorMapa.style.display = 'flex'
+    
+    botonesMover.forEach(boton=>{
+        boton.addEventListener('click', (evento)=> {
+            if (evento.target.id == 'boton-mover-derecha'){
+                moverMokepon('x', 5)
+            } else if (evento.target.id == 'boton-mover-izquierda'){
+                moverMokepon('x', -5)
+            } else if (evento.target.id == 'boton-mover-arriba'){
+                moverMokepon('y', -5)
+            } else if (evento.target.id == 'boton-mover-abajo'){
+                moverMokepon('y', 5)
+            }
+        })
+    })
+
     pintarMokepon() 
 }
 
@@ -147,8 +161,13 @@ function pintarMokepon (){
     )
 }
 
-function moverMokepon(){
-    mascotaJugador.x = mascotaJugador.x + 5;
+function moverMokepon(eje, pixels){
+    if(eje == 'x'){
+        mascotaJugador.x += pixels;
+    }else if(eje == 'y'){
+        mascotaJugador.y = mascotaJugador.y + pixels;
+    }
+    
     pintarMokepon ()
 }
 

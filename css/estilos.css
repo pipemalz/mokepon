@@ -66,6 +66,28 @@ body {
     margin: 20px;
 }
 
+.botones-movimiento{
+    display: grid;
+    grid-template-columns: 33px 33px 33px;
+    grid-template-rows: 20px 20px;
+}
+
+#boton-mover-arriba{
+    grid-column-start: 2;
+}
+
+#boton-mover-derecha,  #boton-mover-izquierda{
+    grid-row-start: 2;
+}
+#boton-mover-derecha {
+    grid-column-start: 3;
+}
+
+#boton-mover-abajo{
+    grid-column-start: 2;
+    grid-row-start: 3;
+}
+
 .tarjetas {
     width: 100%;
     display: flex;
