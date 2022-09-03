@@ -1,5 +1,6 @@
 const botonElegir = document.getElementById('boton-elegir')
 const botonReiniciar = document.getElementById('boton-reiniciar')
+const botonMover = document.getElementById('boton-mover')
 const seccionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
 const seccionReiniciarJuego = document.getElementById('boton-reiniciar')
 const seccionMensajes = document.getElementById('mensajes')
@@ -14,6 +15,8 @@ const divAtaquesEnemigo = document.getElementById('ataques-enemigo')
 const divAtaquesJugador = document.getElementById('ataques-jugador')
 const contenedorTarjetas = document.getElementById('contenedor-tarjetas')
 const contenedorBotonesAtaque = document.getElementById('botones-ataque')
+const contenedorMapa = document.getElementById('contenedor-mapa')
+const mapa = document.getElementById('mapa')
 let mokepones = []
 let mascotaJugador = null
 let mascotaEnemigo
@@ -36,6 +39,12 @@ class Mokepon {
         this.foto = foto
         this.tipo = tipo
         this.ataques = []
+        this.x = 20
+        this.y = 30
+        this.ancho = 80
+        this.alto = 80
+        this.mapaFoto = new Image()
+        this.mapaFoto.src = foto
     }
 }
 
@@ -76,6 +85,7 @@ function iniciarJuego(){
     crearMokepon('pydos', './img/pydos.png', 'TIERRA')
     crearMokepon('langostelvis', './img/langostelvis.png', 'AGUA')
 
+    contenedorMapa.style.display = 'none'
     seccionSeleccionarAtaque.style.display='none'
     seccionReiniciarJuego.style.display='none'
     seccionMensajes.style.display='none'
@@ -94,7 +104,7 @@ function iniciarJuego(){
     })
 
     botonElegir.addEventListener('click', seleccionarMascotaJugador)
-
+    botonMover.addEventListener('click', moverMokepon)
     botonReiniciar.addEventListener('click', reiniciarJuego)
 }
 
@@ -102,9 +112,12 @@ function seleccionarMascotaJugador() {
 
     for (let i = 0; i < inputMascota.length; i++) {
         if(inputMascota[i].checked){
-            console.log("Seleccionado " + inputMascota[i].id)
             spanMascotaJugador.innerHTML = inputMascota[i].id
-            mascotaJugador = inputMascota[i].id
+            mokepones.forEach(mokepon => {
+                if(inputMascota[i].id == mokepon.nombre){
+                    mascotaJugador = mokepon
+                }
+            })
             seleccionarMascotaEnemigo()
         } 
     }
@@ -112,18 +125,35 @@ function seleccionarMascotaJugador() {
     if(mascotaJugador == null){
         botonElegir.disabled = true
     }
-    
-    extraerAtaques(mascotaJugador)
+    extraerAtaques()
+    mostrarMapa()
 }
 
-function extraerAtaques(mascotaJugador){
-    
-    mokepones.forEach((mokepon)=> {
-        if(mascotaJugador === mokepon.nombre){
-            ataquesMokeponJugador = mokepon.ataques
-        }
-    })
+function mostrarMapa(){
+    contenedorMapa.style.display = 'flex'
+    pintarMokepon() 
+}
 
+function pintarMokepon (){
+
+    let lienzo = mapa.getContext('2d')
+    lienzo.clearRect(0,0,mapa.width,mapa.height)
+    lienzo.drawImage(
+        mascotaJugador.mapaFoto,
+        mascotaJugador.x,
+        mascotaJugador.y,
+        mascotaJugador.ancho,
+        mascotaJugador.alto
+    )
+}
+
+function moverMokepon(){
+    mascotaJugador.x = mascotaJugador.x + 5;
+    pintarMokepon ()
+}
+
+function extraerAtaques(){
+    ataquesMokeponJugador = mascotaJugador.ataques
     mostrarAtaques(ataquesMokeponJugador)
 }
 
@@ -169,8 +199,8 @@ function seleccionarMascotaEnemigo(){
     spanMascotaEnemigo.innerHTML = mokepones[mascotaAleatoriaEnemigo].nombre
     
     ataquesMokeponEnemigo = mokepones[mascotaAleatoriaEnemigo].ataques
-    // seccionSeleccionarMascota.style.display='none'
-    seccionSeleccionarAtaque.style.display='flex'
+    seccionSeleccionarMascota.style.display='none'
+    // seccionSeleccionarAtaque.style.display='flex'
     inputMascota.disabled = true
     botonElegir.disabled = true
 }

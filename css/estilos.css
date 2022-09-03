@@ -40,6 +40,32 @@ body {
     border-radius: 0px 0px 20px 20px;
 }
 
+.seleccionar-ataque {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px 20px 20px 20px;
+    background-color: #121F3D;
+    border-radius: 0px 0px 20px 20px;
+}
+
+.contenedor-mapa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px 20px 20px 20px;
+    background-color: #121F3D;
+    border-radius: 0px 0px 20px 20px;
+}
+
+.mapa{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #33B0FE;
+    margin: 20px;
+}
+
 .tarjetas {
     width: 100%;
     display: flex;
@@ -129,14 +155,6 @@ input:checked + .tarjeta-mokepon img{
     color: white
 }
 
-.seleccionar-ataque {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0px 20px 20px 20px;
-    background-color: #121F3D;
-    border-radius: 0px 0px 20px 20px;
-}
 
 .botones-ataque{
     display: flex;
