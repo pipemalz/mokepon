@@ -132,9 +132,13 @@ function seleccionarMascotaJugador() {
 }
 
 function mostrarMapa(){
+
     contenedorMapa.style.display = 'flex'
 
-    document.addEventListener('keydown', evento=>{
+    mapa.width = 800
+    mapa.height = 600
+
+    window.addEventListener('keydown', evento=>{
         if(evento.key == 'ArrowUp'){
             moverMokepon('y', -5)
         }else if(evento.key == 'ArrowDown'){
@@ -163,7 +167,7 @@ function mostrarMapa(){
         boton.addEventListener('mouseup', detenerMokepon)
     })
 
-    setInterval(pintarMokepon, 50)
+    intervalo = setInterval(pintarCanvas, 50)
 }
 
 function moverMokepon(eje, pixels){
@@ -179,12 +183,25 @@ function detenerMokepon(){
     mascotaJugador.velocidadY = 0
 }
 
-function pintarMokepon (){
+function pintarCanvas (){
     mascotaJugador.x += mascotaJugador.velocidadX
     mascotaJugador.y += mascotaJugador.velocidadY
 
+    let mapaBackground = new Image()
+    mapaBackground.src = './img/mapa.jpg'
+
     let lienzo = mapa.getContext('2d')
+
     lienzo.clearRect(0,0,mapa.width,mapa.height)
+    
+    lienzo.drawImage(
+        mapaBackground,
+        0,
+        0,
+        mapa.width,
+        mapa.height
+    )
+
     lienzo.drawImage(
         mascotaJugador.mapaFoto,
         mascotaJugador.x,
