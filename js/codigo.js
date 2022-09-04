@@ -32,6 +32,7 @@ let indexAtaqueJugador
 let indexAtaqueEnemigo
 let victoriasJugador = 0
 let victoriasEnemigo = 0
+let intervalo
 
 class Mokepon {
     constructor(nombre, foto, tipo){
@@ -45,6 +46,8 @@ class Mokepon {
         this.alto = 80
         this.mapaFoto = new Image()
         this.mapaFoto.src = foto
+        this.velocidadX = 0
+        this.velocidadY = 0
     }
 }
 
@@ -130,9 +133,23 @@ function seleccionarMascotaJugador() {
 
 function mostrarMapa(){
     contenedorMapa.style.display = 'flex'
-    
+
+    document.addEventListener('keydown', evento=>{
+        if(evento.key == 'ArrowUp'){
+            moverMokepon('y', -5)
+        }else if(evento.key == 'ArrowDown'){
+            moverMokepon('y', 5)
+        }else if(evento.key == 'ArrowRight'){
+            moverMokepon('x', 5)
+        }else if(evento.key == 'ArrowLeft'){
+            moverMokepon('x', -5)
+        }
+    })
+
+    document.addEventListener('keyup', detenerMokepon)
+      
     botonesMover.forEach(boton=>{
-        boton.addEventListener('click', (evento)=> {
+        boton.addEventListener('mousedown', (evento)=> {
             if (evento.target.id == 'boton-mover-derecha'){
                 moverMokepon('x', 5)
             } else if (evento.target.id == 'boton-mover-izquierda'){
@@ -143,12 +160,28 @@ function mostrarMapa(){
                 moverMokepon('y', 5)
             }
         })
+        boton.addEventListener('mouseup', detenerMokepon)
     })
 
-    pintarMokepon() 
+    setInterval(pintarMokepon, 50)
+}
+
+function moverMokepon(eje, pixels){
+    if(eje == 'x'){
+        mascotaJugador.velocidadX = pixels;
+    }else if(eje == 'y'){
+        mascotaJugador.velocidadY = pixels;
+    }
+}
+
+function detenerMokepon(){
+    mascotaJugador.velocidadX = 0
+    mascotaJugador.velocidadY = 0
 }
 
 function pintarMokepon (){
+    mascotaJugador.x += mascotaJugador.velocidadX
+    mascotaJugador.y += mascotaJugador.velocidadY
 
     let lienzo = mapa.getContext('2d')
     lienzo.clearRect(0,0,mapa.width,mapa.height)
@@ -159,16 +192,6 @@ function pintarMokepon (){
         mascotaJugador.ancho,
         mascotaJugador.alto
     )
-}
-
-function moverMokepon(eje, pixels){
-    if(eje == 'x'){
-        mascotaJugador.x += pixels;
-    }else if(eje == 'y'){
-        mascotaJugador.y = mascotaJugador.y + pixels;
-    }
-    
-    pintarMokepon ()
 }
 
 function extraerAtaques(){
