@@ -143,7 +143,7 @@ function seleccionarMascotaJugador() {
                     mascotaJugador = mokepon
                 }
             })
-            seleccionarMascotaEnemigo()
+            seccionSeleccionarMascota.style.display='none'
         } 
     }
 
@@ -232,6 +232,9 @@ function detectarColision(){
         }else{
             detenerMokepon()
             alert(`Te encontraste con ${mokepon.nombre}!!!`)
+            seccionSeleccionarAtaque.style.display='flex'
+            contenedorMapa.style.display='none'
+            seleccionarMascotaEnemigo(mokepon)
         }
     })
 }
@@ -302,14 +305,9 @@ function numeroRandom(min, max){
     return Math.floor(Math.random()*(max-min+1)+min)
 }
 
-function seleccionarMascotaEnemigo(){
-    let mascotaAleatoriaEnemigo = numeroRandom(0, mokepones.length-1)
-
-    spanMascotaEnemigo.innerHTML = mokeponesEnemigos[mascotaAleatoriaEnemigo].nombre
-    
-    ataquesMokeponEnemigo = mokeponesEnemigos[mascotaAleatoriaEnemigo].ataques
-    seccionSeleccionarMascota.style.display='none'
-    // seccionSeleccionarAtaque.style.display='flex'
+function seleccionarMascotaEnemigo(mokponEnemigo){
+    spanMascotaEnemigo.innerHTML = mokponEnemigo.nombre  
+    ataquesMokeponEnemigo = mokponEnemigo.ataques
     inputMascota.disabled = true
     botonElegir.disabled = true
 }
