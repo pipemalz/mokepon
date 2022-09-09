@@ -125,10 +125,10 @@ function iniciarJuego(){
             </label>
         `
         contenedorTarjetas.innerHTML += opcionDeMokepones
-        
-        inputMascota = document.getElementsByName('mascota')
     })
 
+    inputMascota = document.getElementsByName('mascota')
+    
     botonElegir.addEventListener('click', seleccionarMascotaJugador)
     botonReiniciar.addEventListener('click', reiniciarJuego)
 }
@@ -206,6 +206,36 @@ function detenerMokepon(){
     mascotaJugador.velocidadY = 0
 }
 
+function detectarColision(){
+
+    let posicionMascotaJugador = {
+        arriba: mascotaJugador.y,
+        abajo: mascotaJugador.y + mascotaJugador.alto,
+        izquierda: mascotaJugador.x,
+        derecha: mascotaJugador.x + mascotaJugador.ancho
+    }
+
+    mokeponesEnemigos.forEach( mokepon => {
+        let posicionMascotaEnemigo = {
+            arriba: mokepon.y,
+            abajo: mokepon.y + mokepon.alto,
+            izquierda: mokepon.x,
+            derecha: mokepon.x + mokepon.ancho
+        }
+        if(
+            posicionMascotaJugador.arriba > posicionMascotaEnemigo.abajo || 
+            posicionMascotaJugador.abajo < posicionMascotaEnemigo.arriba ||
+            posicionMascotaJugador.derecha < posicionMascotaEnemigo.izquierda ||
+            posicionMascotaJugador.izquierda > posicionMascotaEnemigo.derecha
+        ){
+            return
+        }else{
+            detenerMokepon()
+            alert(`Te encontraste con ${mokepon.nombre}!!!`)
+        }
+    })
+}
+
 function pintarCanvas (){
     mascotaJugador.x += mascotaJugador.velocidadX
     mascotaJugador.y += mascotaJugador.velocidadY
@@ -225,6 +255,10 @@ function pintarCanvas (){
         mokeponEnemigo.pintarMokepon()
     )
     mascotaJugador.pintarMokepon()
+
+    if(mascotaJugador.velocidadX !== 0 || mascotaJugador.velocidadY !==0){
+        detectarColision()
+    }
 }
 
 function extraerAtaques(){
