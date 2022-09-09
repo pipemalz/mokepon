@@ -155,12 +155,11 @@ function seleccionarMascotaJugador() {
 }
 
 function mostrarMapa(){
+ 
+    mapa.width = 800
+    mapa.height = 600
 
     contenedorMapa.style.display = 'flex'
-
-    mapa.width = 320
-    mapa.height = 240
-
     window.addEventListener('keydown', evento=>{
         if(evento.key == 'ArrowUp'){
             moverMokepon('y', -5)
@@ -231,6 +230,7 @@ function detectarColision(){
             return
         }else{
             detenerMokepon()
+            clearInterval(intervalo)
             alert(`Te encontraste con ${mokepon.nombre}!!!`)
             seccionSeleccionarAtaque.style.display='flex'
             contenedorMapa.style.display='none'
@@ -240,6 +240,12 @@ function detectarColision(){
 }
 
 function pintarCanvas (){
+
+    if(window.innerWidth < 880){
+        mapa.width = window.innerWidth-80
+        mapa.height = (mapa.width*600)/800
+    }
+
     mascotaJugador.x += mascotaJugador.velocidadX
     mascotaJugador.y += mascotaJugador.velocidadY
 
