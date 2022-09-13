@@ -17,6 +17,11 @@ const contenedorTarjetas = document.getElementById('contenedor-tarjetas')
 const contenedorBotonesAtaque = document.getElementById('botones-ataque')
 const contenedorMapa = document.getElementById('contenedor-mapa')
 const mapa = document.getElementById('mapa')
+const tamanoInicial = 75
+const mapaInicial = {
+    alto: 600,
+    ancho: 800
+}
 let mokepones = []
 let mascotaJugador = null
 let mascotaEnemigo
@@ -46,8 +51,8 @@ class Mokepon {
         this.ataques = []
         this.x = x
         this.y = y
-        this.ancho = 50
-        this.alto = 50
+        this.ancho = tamanoInicial
+        this.alto = tamanoInicial
         this.mapaFoto = new Image()
         this.mapaFoto.src = mapaFoto
         this.velocidadX = 0
@@ -57,6 +62,16 @@ class Mokepon {
         this.derecha
         this.izquierda
     }
+
+    recalcularTamano(){
+        this.ancho = (tamanoInicial * mapa.width)/mapaInicial.ancho
+        this.alto = (tamanoInicial * mapa.width)/mapaInicial.ancho
+    }
+
+    reposicionarMascota(){
+
+    }
+
     pintarMokepon(){    
         lienzo.drawImage(
             this.mapaFoto,
@@ -164,16 +179,19 @@ function calcularBordes(mokepon){
         mokepon.derecha = mokepon.x + mokepon.alto
 }
 
-function mostrarMapa(){
- 
-    mapa.width = 800
-    mapa.height = 600
-
-    
+function recalcularMapa(){
     if(window.innerWidth < 880){
         mapa.width = window.innerWidth-80
-        mapa.height = (mapa.width*600)/800
+        mapa.height = (mapa.width*mapaInicial.alto)/mapaInicial.ancho
     }
+}
+
+function mostrarMapa(){
+ 
+    mapa.width = mapaInicial.ancho
+    mapa.height = mapaInicial.alto
+
+    recalcularMapa()
 
     mokeponesEnemigos.forEach(mokepon=>{
         mokepon.x = numeroRandom(mokepon.ancho + 10, (mapa.width - mokepon.ancho))
@@ -266,11 +284,8 @@ function detectarColision(){
 
 function pintarCanvas (){
 
-    if(window.innerWidth < 880){
-        mapa.width = window.innerWidth-80
-        mapa.height = (mapa.width*600)/800
-    }
-
+    recalcularMapa()
+    
     mascotaJugador.x += mascotaJugador.velocidadX
     mascotaJugador.y += mascotaJugador.velocidadY
 
@@ -286,8 +301,10 @@ function pintarCanvas (){
         mapa.height
     )
     mokeponesEnemigos.forEach(mokeponEnemigo =>
+        // mokeponEnemigo.recalcularTamano()    
         mokeponEnemigo.pintarMokepon()
     )
+    mascotaJugador.recalcularTamano()
     mascotaJugador.pintarMokepon()
 
     if(mascotaJugador.velocidadX !== 0 || mascotaJugador.velocidadY !==0){
