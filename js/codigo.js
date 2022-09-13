@@ -51,20 +51,11 @@ class Mokepon {
         this.mapaFoto = new Image()
         this.mapaFoto.src = mapaFoto
         this.velocidadX = 0
-        this.velocidadY = 0  
-    }
-
-    arriba(){
-        return this.y
-    }
-    abajo(){
-        return this.y + this.alto
-    }
-    izquierda(){
-        return this.x
-    }
-    derecha(){
-        return this.x + this.ancho
+        this.velocidadY = 0 
+        this.arriba
+        this.abajo
+        this.derecha
+        this.izquierda
     }
     pintarMokepon(){    
         lienzo.drawImage(
@@ -87,8 +78,6 @@ function crearMokeponEnemigo(nombre, foto, tipo, mapaFoto) {
     let mokepon = new Mokepon(nombre, foto, tipo, mapaFoto)
     mokeponesEnemigos.push(mokepon)
     asignarAtaques(mokepon)
-    mokepon.x = numeroRandom(mokepon.ancho + 10, (mapa.width - mokepon.ancho))
-    mokepon.y = numeroRandom(0, (mapa.height - mokepon.alto))
 }
 
 function asignarAtaques(mokepon){
@@ -168,11 +157,29 @@ function seleccionarMascotaJugador() {
     mostrarMapa()
 }
 
+function calcularBordes(mokepon){
+        mokepon.arriba = mokepon.y
+        mokepon.abajo = mokepon.y + mokepon.alto
+        mokepon.izquierda = mokepon.x
+        mokepon.derecha = mokepon.x + mokepon.alto
+}
+
 function mostrarMapa(){
  
     mapa.width = 800
     mapa.height = 600
 
+    
+    if(window.innerWidth < 880){
+        mapa.width = window.innerWidth-80
+        mapa.height = (mapa.width*600)/800
+    }
+
+    mokeponesEnemigos.forEach(mokepon=>{
+        mokepon.x = numeroRandom(mokepon.ancho + 10, (mapa.width - mokepon.ancho))
+        mokepon.y = numeroRandom(0, (mapa.height - mokepon.alto))
+    })
+    
     contenedorMapa.style.display = 'flex'
     window.addEventListener('keydown', evento=>{
         if(evento.key == 'ArrowUp'){
@@ -221,12 +228,15 @@ function detenerMokepon(){
 
 function detectarColision(){
 
+    calcularBordes(mascotaJugador)
+
     mokeponesEnemigos.forEach( mokepon => {
+        calcularBordes(mokepon)
         if(
-            mascotaJugador.arriba() > mokepon.abajo() || 
-            mascotaJugador.abajo() < mokepon.arriba() ||
-            mascotaJugador.derecha() < mokepon.izquierda() ||
-            mascotaJugador.izquierda() > mokepon.derecha()
+            mascotaJugador.arriba > mokepon.abajo || 
+            mascotaJugador.abajo < mokepon.arriba ||
+            mascotaJugador.derecha < mokepon.izquierda ||
+            mascotaJugador.izquierda > mokepon.derecha
         ){
             return
         }else{
@@ -239,16 +249,19 @@ function detectarColision(){
         }
     })
 
-    if(mascotaJugador.arriba() < 1){
-        detenerMokepon()
+    if(mascotaJugador.arriba < 1){
         mascotaJugador.y = 0
     }
-    if(mascotaJugador.izquierda() < 1){
+    if(mascotaJugador.izquierda < 1){
         mascotaJugador.x = 0
     }
-    if(mascotaJugador.abajo() > mapa.height){
-        mascotaJugador.x = mapa.width - 50
+    if(mascotaJugador.abajo > mapa.height){
+        mascotaJugador.y = mapa.height - mascotaJugador.alto
     }
+    if(mascotaJugador.derecha > mapa.width){
+        mascotaJugador.x = mapa.width - mascotaJugador.ancho
+    }
+
 }
 
 function pintarCanvas (){
