@@ -201,7 +201,7 @@ function colisionEnemiga(mokeponesEnemigos){
 }
 
 function mostrarMapa(){
- 
+  
     mapa.width = mapaInicial.ancho
     mapa.height = mapaInicial.alto
 
@@ -214,7 +214,7 @@ function mostrarMapa(){
     })
 
     while (colisionEnemiga(mokeponesEnemigos)){
-        mokeponesEnemigos.forEach(mokepon=>{
+            mokeponesEnemigos.forEach(mokepon=>{
             mokepon.x = numeroRandom(mokepon.ancho + 10, (mapa.width - mokepon.ancho))
             mokepon.y = numeroRandom(0, (mapa.height - mokepon.alto))
             calcularBordes(mokepon)
@@ -304,7 +304,6 @@ function detectarColision(){
     }
 
 }
-
 
 function pintarCanvas (){
 
