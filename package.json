@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/pipemalz/mokepon/issues"
   },
-  "homepage": "https://github.com/pipemalz/mokepon#readme"
+  "homepage": "https://github.com/pipemalz/mokepon#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
 }
