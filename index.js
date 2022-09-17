@@ -72,9 +72,7 @@ app.post("/mokepon/:jugadorId/posicion", (req, res)=> {
 
     const enemigos = jugadores.filter((jugador)=> jugador.id !== jugadorId)
 
-    res.send({
-        enemigos
-    })
+    res.send({enemigos})
 })
 
 app.listen(port, ()=>{
