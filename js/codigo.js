@@ -118,9 +118,9 @@ function iniciarJuego(){
     crearMokeponJugador('hipodoge', './img/hipodoge.png', 'AGUA', './img/hipodoge-head.png', jugadorId)
     crearMokeponJugador('capipepo', './img/capipepo.png', 'TIERRA', './img/capipepo-head.png', jugadorId)
     crearMokeponJugador('ratigueya', './img/ratigueya.png', 'FUEGO', './img/ratigueya-head.png', jugadorId)
-    crearMokeponJugador('tucapalma', './img/tucapalma.png', 'VIENTO', './img/tucapalma.png', jugadorId)
-    crearMokeponJugador('pydos', './img/pydos.png', 'TIERRA', './img/pydos.png', jugadorId)
-    crearMokeponJugador('langostelvis', './img/langostelvis.png', 'AGUA', './img/langostelvis.png', jugadorId)
+    crearMokeponJugador('tucapalma', './img/tucapalma.png', 'VIENTO', './img/tucapalma-head.png', jugadorId)
+    crearMokeponJugador('pydos', './img/pydos.png', 'TIERRA', './img/pydos-head.png', jugadorId)
+    crearMokeponJugador('langostelvis', './img/langostelvis.png', 'AGUA', './img/langostelvis-head.png', jugadorId)
     
     contenedorMapa.style.display = 'none'
     seccionSeleccionarAtaque.style.display='none'
